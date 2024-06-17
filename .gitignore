@@ -3,10 +3,10 @@
 /node_modules
 /build
 .env
+# Prisma
 prisma/*.prisma
-
-# Ignore Prisma migrations
 prisma/migrations/
+node_modules/@prisma/
 # Logs
 logs
 *.log
