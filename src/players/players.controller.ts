@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Post,
-  BadRequestException,
   Get,
   Param,
   Query,
@@ -18,15 +17,12 @@ export class PlayersController {
   @Post('register')
   async register(@Body() playersPayload: Prisma.PlayerCreateInput) {
     const player = await this.playersService.create(playersPayload);
-    console.log(player);
-    if (player) return player;
-    else throw new BadRequestException();
+    return player;
   }
 
   @Get()
   async findAll(@Query('role') role?: 'BATTER' | 'BOWLER' | 'ALLROUNDER') {
     const players = await this.playersService.findAll(role);
-    console.log('Players', players);
     return players;
   }
 
