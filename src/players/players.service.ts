@@ -66,12 +66,19 @@ export class PlayersService {
           where: {
             role,
           },
+          include: {
+            team: true,
+          },
         });
       }
-      return await this.databaseService.player.findMany();
+      return await this.databaseService.player.findMany({
+        include: {
+          team: true,
+        },
+      });
     } catch (error: any) {
       throw new HttpException(
-        'Interal Server Error',
+        'Internal Server Error',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
@@ -83,10 +90,13 @@ export class PlayersService {
         where: {
           id,
         },
+        include: {
+          team: true,
+        },
       });
     } catch (error: any) {
       throw new HttpException(
-        'Interal Server Error',
+        'Internal Server Error',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
@@ -101,7 +111,7 @@ export class PlayersService {
       });
     } catch (error: any) {
       throw new HttpException(
-        'Interal Server Error',
+        'Internal Server Error',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
@@ -109,7 +119,6 @@ export class PlayersService {
 
   async update(id: string, updatePlayer: Prisma.PlayerUpdateInput) {
     try {
-      console.log('Update Player:', updatePlayer);
       return await this.databaseService.player.update({
         where: {
           id,
@@ -118,7 +127,7 @@ export class PlayersService {
       });
     } catch (error: any) {
       throw new HttpException(
-        'Interal Server Error',
+        'Internal Server Error',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
@@ -126,14 +135,15 @@ export class PlayersService {
 
   async remove(id: string) {
     try {
-      return await this.databaseService.player.delete({
+      const deletdPlayer = await this.databaseService.player.delete({
         where: {
           id,
         },
       });
+      return deletdPlayer;
     } catch (error: any) {
       throw new HttpException(
-        'Interal Server Error',
+        'Internal Server Error',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

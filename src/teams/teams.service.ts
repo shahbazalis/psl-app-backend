@@ -33,6 +33,7 @@ export class TeamsService {
   }
 
   async remove(id: string) {
+    console.log('Team to be removed id:', id);
     return await this.databaseService.team.delete({
       where: {
         id,

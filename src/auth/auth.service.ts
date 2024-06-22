@@ -33,46 +33,4 @@ export class AuthService {
       throw new HttpException(error.response, HttpStatus.UNAUTHORIZED);
     }
   }
-
-  // async validateUser({ email, password }: AuthPayloadDto): Promise<any> {
-  //   try {
-  //     const player = await this.playersService.findOneUsingEmail(email);
-  //     console.log('Player', player);
-  //     if (player && bcrypt.compareSync(password, player.password)) {
-  //       const { password, ...result } = player;
-  //       return this.jwtService.sign(result);
-  //     }
-  //   } catch (error) {
-  //     console.log('Error:', error);
-  //     throw new HttpException(error, HttpStatus.UNAUTHORIZED);
-  //   }
-  //   //return null;
-  // }
-
-  // async login(player: any) {
-  //   const payload = { email: player.email, sub: player.id };
-  //   return {
-  //     access_token: this.jwtService.sign(payload),
-  //   };
-  // }
-
-  // async register(email: string, password: string) {
-  //   const hashedPassword = await bcrypt.hash(password, 10);
-  //   const user = await this.databaseService.player.create({
-  //     data: {
-  //       email,
-  //       password: hashedPassword,
-  //     },
-  //   });
-  //   return this.login(user);
-  // }
-
-  // async validateUser({ username, password }: AuthPayloadDto) {
-  //   const findUser = fakeUsers.find((user) => user.username === username);
-  //   if (!findUser) return null;
-  //   if (password === findUser.password) {
-  //     const { password, ...user } = findUser;
-  //     return this.jwtService.sign(user);
-  //   }
-  // }
 }

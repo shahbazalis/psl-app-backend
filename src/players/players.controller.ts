@@ -7,9 +7,11 @@ import {
   Query,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { PlayersService } from './players.service';
 import { Prisma } from '@prisma/client';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('players')
 export class PlayersController {
@@ -21,27 +23,33 @@ export class PlayersController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async findAll(@Query('role') role?: 'BATTER' | 'BOWLER' | 'ALLROUNDER') {
     const players = await this.playersService.findAll(role);
     return players;
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   async findOne(@Param('id') id: string) {
     const player = await this.playersService.findOne(id);
     return player;
   }
 
   @Patch(':id')
-  update(
+  @UseGuards(JwtAuthGuard)
+  async update(
     @Param('id') id: string,
     @Body() updatePlayer: Prisma.PlayerUpdateInput,
   ) {
-    return this.playersService.update(id, updatePlayer);
+    const updatedPlayer = await this.playersService.update(id, updatePlayer);
+    return updatedPlayer;
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.playersService.remove(id);
+  @UseGuards(JwtAuthGuard)
+  async remove(@Param('id') id: string) {
+    const deletedPlayer = this.playersService.remove(id);
+    return deletedPlayer;
   }
 }
