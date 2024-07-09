@@ -5,9 +5,10 @@ import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { PlayersModule } from './players/players.module';
 import { TeamsModule } from './teams/teams.module';
+import { AdminsModule } from './admins/admins.module';
 
 @Module({
-  imports: [AuthModule, DatabaseModule, PlayersModule, TeamsModule],
+  imports: [AuthModule, DatabaseModule, PlayersModule, TeamsModule, AdminsModule],
   controllers: [AppController],
   providers: [AppService],
 })

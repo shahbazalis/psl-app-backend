@@ -26,8 +26,10 @@ export class AuthService {
       // If authentication is successful, sign and return JWT token
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password: omitPassword, ...result } = player; // Rename 'password' to 'omitPassword'
+
       return {
         token: this.jwtService.sign(result),
+        admin: player.admin,
       };
     } catch (error) {
       throw new HttpException(error.response, HttpStatus.UNAUTHORIZED);

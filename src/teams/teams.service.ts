@@ -12,13 +12,20 @@ export class TeamsService {
   }
 
   async findAll() {
-    return await this.databaseService.team.findMany();
+    return await this.databaseService.team.findMany({
+      include: {
+        players: true,
+      },
+    });
   }
 
   async findOne(id: string) {
     return await this.databaseService.team.findUnique({
       where: {
         id,
+      },
+      include: {
+        players: true,
       },
     });
   }
@@ -33,7 +40,6 @@ export class TeamsService {
   }
 
   async remove(id: string) {
-    console.log('Team to be removed id:', id);
     return await this.databaseService.team.delete({
       where: {
         id,

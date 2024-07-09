@@ -23,7 +23,7 @@ export class PlayersController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   async findAll(@Query('role') role?: 'BATTER' | 'BOWLER' | 'ALLROUNDER') {
     const players = await this.playersService.findAll(role);
     return players;

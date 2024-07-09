@@ -31,7 +31,7 @@ export class PlayersService {
         const existingField =
           existingPlayer.email === createPlayer.email ? 'email' : 'name';
         throw new HttpException(
-          `Player with the same ${existingField} already exists`,
+          `User with the same ${existingField} already exists`,
           HttpStatus.BAD_REQUEST,
         );
       } else {
@@ -53,7 +53,7 @@ export class PlayersService {
       }
     } catch (error: any) {
       throw new HttpException(
-        `Failed to create player. ${error.message}`,
+        `Failed to create user. ${error.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

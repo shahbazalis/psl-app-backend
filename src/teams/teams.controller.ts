@@ -25,14 +25,14 @@ export class TeamsController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   async findAll() {
     const teams = await this.teamsService.findAll();
     return teams;
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   async findOne(@Param('id') id: string) {
     const team = await this.teamsService.findOne(id);
     return team;
