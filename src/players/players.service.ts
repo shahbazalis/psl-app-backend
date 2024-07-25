@@ -16,7 +16,7 @@ export class PlayersService {
       // If the default team doesn't exist, create it
       if (!defaultTeam) {
         defaultTeam = await this.databaseService.team.create({
-          data: { name: 'Default Team' },
+          data: { name: 'Default Team', budget: 0 },
         });
       }
 
@@ -45,6 +45,7 @@ export class PlayersService {
             phoneNumber: createPlayer.phoneNumber,
             nationality: createPlayer.nationality,
             status: 'UNSOLD',
+            price: 0,
             team: { connect: { id: defaultTeam.id } },
           },
         });

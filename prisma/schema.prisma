@@ -5,9 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl"]
-
 }
 
 datasource db {
@@ -31,6 +30,7 @@ model Player {
   phoneNumber String
   nationality String
   status      Status
+  price       Float
   teamId      String
   team        Team     @relation(fields: [teamId], references: [id])
   createdAt   DateTime @default(now())
@@ -40,6 +40,7 @@ model Player {
 model Team {
   id        String   @id @default(uuid())
   name      String
+  budget    Float
   players   Player[] // A team has many players
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
