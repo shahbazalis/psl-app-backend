@@ -18,7 +18,7 @@ export class TeamsController {
   constructor(private readonly teamsService: TeamsService) {}
   @Post('create')
   @UseGuards(JwtAuthGuard)
-  async create(@Body() teamsPayload: Prisma.PlayerCreateInput) {
+  async create(@Body() teamsPayload: Prisma.TeamCreateInput) {
     const team = await this.teamsService.create(teamsPayload);
     if (team) return team;
     else throw new BadRequestException();
