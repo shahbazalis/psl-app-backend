@@ -23,7 +23,6 @@ export class PlayersController {
   }
 
   @Get()
-  //@UseGuards(JwtAuthGuard)
   async findAll(@Query('role') role?: 'BATTER' | 'BOWLER' | 'ALLROUNDER') {
     const players = await this.playersService.findAll(role);
     return players;
@@ -36,8 +35,14 @@ export class PlayersController {
     return player;
   }
 
+  @Get('email/:email')
+  async findOneUsingEmail(@Param('email') email: string) {
+    const player = await this.playersService.findOneUsingEmail(email);
+    return player;
+  }
+
   @Patch(':id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   async update(
     @Param('id') id: string,
     @Body() updatePlayer: Prisma.PlayerUpdateInput,

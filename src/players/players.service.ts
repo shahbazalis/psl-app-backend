@@ -23,13 +23,21 @@ export class PlayersService {
       // Check if a player with the same email or name already exists
       const existingPlayer = await this.databaseService.player.findFirst({
         where: {
-          OR: [{ email: createPlayer.email }, { name: createPlayer.name }],
+          OR: [
+            { email: createPlayer.email },
+            { name: createPlayer.name },
+            { phoneNumber: createPlayer.phoneNumber },
+          ],
         },
       });
 
       if (existingPlayer) {
         const existingField =
-          existingPlayer.email === createPlayer.email ? 'email' : 'name';
+          existingPlayer.email === createPlayer.email
+            ? 'email'
+            : existingPlayer.name === createPlayer.name
+              ? 'name'
+              : 'phoneNumber';
         throw new HttpException(
           `User with the same ${existingField} already exists`,
           HttpStatus.BAD_REQUEST,
@@ -46,6 +54,7 @@ export class PlayersService {
             nationality: createPlayer.nationality,
             status: 'UNSOLD',
             price: 0,
+            url: createPlayer.url,
             team: { connect: { id: defaultTeam.id } },
           },
         });
@@ -120,6 +129,12 @@ export class PlayersService {
 
   async update(id: string, updatePlayer: Prisma.PlayerUpdateInput) {
     try {
+      if (updatePlayer.password) {
+        updatePlayer.password = await bcrypt.hash(
+          updatePlayer.password as string,
+          10,
+        );
+      }
       return await this.databaseService.player.update({
         where: {
           id,
