@@ -22,15 +22,16 @@ datasource db {
 
 model Player {
   id          String   @id @default(uuid())
-  name        String
+  name        String   @unique
   email       String   @unique
   admin       Boolean  @default(false)
   password    String
   role        Role
-  phoneNumber String
+  phoneNumber String   @unique
   nationality String
   status      Status
   price       Float
+  url         String
   teamId      String
   team        Team     @relation(fields: [teamId], references: [id])
   createdAt   DateTime @default(now())
