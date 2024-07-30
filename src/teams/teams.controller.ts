@@ -37,6 +37,7 @@ export class TeamsController {
     const team = await this.teamsService.findOne(id);
     return team;
   }
+
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateTeam: Prisma.TeamUpdateInput) {

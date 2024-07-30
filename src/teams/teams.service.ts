@@ -20,11 +20,20 @@ export class TeamsService {
 
   async findAll() {
     try {
-      return await this.databaseService.team.findMany({
+      const teams = await this.databaseService.team.findMany({
         include: {
           players: true,
         },
       });
+      const teamWithUpdatedBudget = teams.map((team) => {
+        const playersValue = team.players.reduce((accumulator, player) => {
+          return (accumulator += player.price);
+        }, 0);
+        team.budget = team.budget - playersValue;
+        return team;
+      });
+
+      return teamWithUpdatedBudget;
     } catch (error: any) {
       throw new HttpException(
         'Internal Server Error',
