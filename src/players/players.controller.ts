@@ -23,7 +23,9 @@ export class PlayersController {
   }
 
   @Get()
-  async findAll(@Query('role') role?: 'BATTER' | 'BOWLER' | 'ALLROUNDER') {
+  async findAll(
+    @Query('role') role?: 'GOALKEEPER' | 'DEFENDER' | 'MIDFIELDER' | 'ATTACKER',
+  ) {
     const players = await this.playersService.findAll(role);
     return players;
   }

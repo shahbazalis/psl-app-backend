@@ -48,9 +48,10 @@ model Team {
 }
 
 enum Role {
-  BATTER
-  BOWLER
-  ALLROUNDER
+  GOALKEEPER
+  DEFENDER
+  MIDFIELDER
+  ATTACKER
 }
 
 enum Status {

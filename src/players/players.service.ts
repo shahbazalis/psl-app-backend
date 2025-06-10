@@ -63,13 +63,13 @@ export class PlayersService {
       }
     } catch (error: any) {
       throw new HttpException(
-        `Failed to create user. ${error.message}`,
+        `Failed to create user.`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
 
-  async findAll(role?: 'BATTER' | 'BOWLER' | 'ALLROUNDER') {
+  async findAll(role?: 'GOALKEEPER' | 'DEFENDER' | 'MIDFIELDER' | 'ATTACKER') {
     try {
       if (role) {
         return await this.databaseService.player.findMany({
